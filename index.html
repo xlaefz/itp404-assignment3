@@ -5,7 +5,26 @@
     <title> AJAX Demo</title>
 </head>
 <body>
-<div id="song-list"></dic>
+
+<script type = "template/handlebars" id = "reddit-list-template">
+	{{#each this}}
+		<div class = : "subreddit">
+			<h2>{{this.data.title}} </h2>
+			<p> Score: {{this.data.score}} </p>
+			<p> Num Comments: {{this.data.num_comments}} </p>
+			{{#if this.data.archived}}
+				<p> Archived </p>
+			{{else}}
+				<p> Not Archived </p>
+			{{/if}}
+		</div>
+	{{else}}
+		<p> No subreddits found. </p>
+	{{/each}}
+</script>
+
+
+<div id="subreddit-list"></div>
   <script src="jquery-3.1.1.js"></script>
   <script src="handlebars-v4.0.5.js"></script>
   <script src="main.js"></script>

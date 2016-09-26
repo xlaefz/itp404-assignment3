@@ -22,12 +22,12 @@
 
 function getSongs(){
 	var promise =  $.ajax({
-	url: 'https://www.reddit.com/r/javascript.json',
+	url: 'http://itp-api.herokuapp.com/songs',
 	type: 'get'
 	});
 	var promise2 = promise.then(function(response){
 		console.log(1);
-		return response.data.children;
+		return response.songs;
 	});
 	return promise2;
 }
@@ -35,11 +35,12 @@ function getSongs(){
 //all promises have a .then attribute
 getSongs().then(function(response){
 	console.log(2, response);
-	//console.log(3, response[0].data);
-	var templateSource = $('#reddit-list-template').html();
+	var templateSource = $('#song-list-template').html();
 	var template = Handlebars.compile(templateSource);
-	var html = template(response);
-	$('#subreddit-list').html(html);
+	var html = template({
+		favoriteSongs: response
+	});
+	$('#song-list').html(html);
 }, function(){
 	console.log('there was an error');
 });
